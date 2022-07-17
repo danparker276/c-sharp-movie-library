@@ -3,5 +3,6 @@
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [Title] NVARCHAR(MAX) NOT NULL, 
     [Description] NVARCHAR(MAX) NULL, 
-    [SmallImage] IMAGE NULL
+    [ImageUrl] NVARCHAR(MAX) NULL, 
+    [Created] DATETIME NOT NULL DEFAULT GETUTCDATE()
 )

@@ -12,7 +12,7 @@ namespace dp.data.AdoNet.DataAccessObjects
 
         public BaseDao(string dpDbConnectionString)
         {
-            _queryExecutor = new SqlQueryExecutor(dpDbConnectionString);// WebConfigManager.Instance.dpDbConnectionString);
+            _queryExecutor = new SqlQueryExecutor(dpDbConnectionString);
         }
 
         /// <summary>

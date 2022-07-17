@@ -8,6 +8,8 @@ namespace dp.data.Interfaces
     public interface IDaoFactory
     {
         UserDao UserDao { get; }
+        MovieDao MovieDao { get; }
+        RentalDao RentalDao { get; }
     }
 
 }

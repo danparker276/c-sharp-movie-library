@@ -144,6 +144,49 @@ namespace dp.data.AdoNet.DataAccessObjects
             });
         }
 
+        public async Task<int?> AddUserMember(Member member)
+        {
+
+            SqlQuery textsql = new SqlQuery(@" 
+	IF (Select count(*) from user_member where userId=@userId ) = 0
+	BEGIN
+	insert into user_member (UserId, FirstName, LastName, Membership)
+	values (@userId,@firstName,@lastName,@membership); select SCOPE_IDENTITY();
+
+	END;
+                ", 30, System.Data.CommandType.Text);
+            textsql.AddInputParam("userId", SqlDbType.Int, member.UserId);
+            textsql.AddInputParam("firstName", SqlDbType.NVarChar, member.FirstName);
+            textsql.AddInputParam("lastName", SqlDbType.NVarChar, member.LastName);
+            textsql.AddInputParam("membership", SqlDbType.Int, (int)member.Membership);
+            return await _queryExecutor.ExecuteAsync(textsql, sqlReader => GetReturnValue<int?>(sqlReader));
+
+        }
+        public async Task<Member> GetUserMember(int userId)
+        {
+
+            SqlQuery textsql = new SqlQuery(@" 
+	            Select * from user_member where userId=@userId ", 30, System.Data.CommandType.Text);
+            textsql.AddInputParam("userId", SqlDbType.Int, userId);
+
+            return await _queryExecutor.ExecuteAsync(textsql, dataReader =>
+            {
+                while (dataReader.Read())
+                {
+                    return new Member()
+                    {
+                        UserId = SqlQueryResultParser.GetValue<Int32>(dataReader, "UserId"),
+                        Membership = (Membership)SqlQueryResultParser.GetValue<Int32>(dataReader, "Membership"),
+                        FirstName = SqlQueryResultParser.GetValue<String>(dataReader, "FirstName"),
+                        LastName = SqlQueryResultParser.GetValue<String>(dataReader, "LastName"),
+                        Id = SqlQueryResultParser.GetValue<Int32>(dataReader, "Id")
+                    };
+                }
+                return null;
+            });
+
+        }
+
 
 
     }
