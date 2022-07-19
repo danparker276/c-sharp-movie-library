@@ -4,6 +4,20 @@
         <name>dp.api</name>
     </assembly>
     <members>
+        <member name="M:dp.api.Controllers.MovieController.GetAll(System.String)">
+            <summary>
+            Get a list of all Moves
+            </summary>
+            <param name="search">Search String for Movie Title</param>
+            <returns></returns>
+        </member>
+        <member name="M:dp.api.Controllers.MovieController.AddMovie(dp.business.Models.MovieRequest)">
+            <summary>
+            Add a movie - only for admins
+            </summary>
+            <param name="movie">Move you want to add</param>
+            <returns></returns>
+        </member>
         <member name="M:dp.api.Controllers.UsersController.Authenticate(dp.business.Models.TokenRequest)">
             <summary>
             This main login call to get a token
