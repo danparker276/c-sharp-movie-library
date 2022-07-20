@@ -18,6 +18,26 @@
             <param name="movie">Move you want to add</param>
             <returns></returns>
         </member>
+        <member name="M:dp.api.Controllers.RentalController.GetAll">
+            <summary>
+            Get all Rentals for current user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:dp.api.Controllers.RentalController.AddRental(dp.business.Models.RentalRequest)">
+            <summary>
+            Add a rental to a user
+            </summary>
+            <param name="rental"></param>
+            <returns></returns>
+        </member>
+        <member name="M:dp.api.Controllers.RentalController.UpdateRental(dp.business.Models.RentalUpdateRequest)">
+            <summary>
+            
+            </summary>
+            <param name="rentalUpdate"></param>
+            <returns></returns>
+        </member>
         <member name="M:dp.api.Controllers.UsersController.Authenticate(dp.business.Models.TokenRequest)">
             <summary>
             This main login call to get a token

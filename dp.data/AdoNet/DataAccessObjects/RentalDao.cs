@@ -23,7 +23,7 @@ namespace dp.data.AdoNet.DataAccessObjects
         {
 
             SqlQuery textsql = new SqlQuery(@" 
-                select r.*, m.Description, m.Title, m.ImageUrl from rentals r inner join movies m on r.movie_id=m.id
+                select r.*, m.Description, m.Title, m.ImageUrl from rentals r inner join movies m on r.movieId=m.id
                 where r.userId=@userId 
                 and r.status = @status;
                 ", 30, System.Data.CommandType.Text);
@@ -44,7 +44,7 @@ namespace dp.data.AdoNet.DataAccessObjects
                         ImageUrl = SqlQueryResultParser.GetValue<String>(dataReader, "ImageUrl"),
                         Title = SqlQueryResultParser.GetValue<String>(dataReader, "Title"),
                         Rented = SqlQueryResultParser.GetValue<DateTime>(dataReader, "Rented"),
-                        Returned = SqlQueryResultParser.GetValue<DateTime>(dataReader, "Returned"),
+                        Returned = SqlQueryResultParser.GetValue<DateTime>(dataReader, "Returned",false),
 
 
                     });
@@ -61,15 +61,15 @@ namespace dp.data.AdoNet.DataAccessObjects
         /// <param name="userId"></param>
         /// <param name="movieId"></param>
         /// <returns></returns>
-        public async Task AddRental(int userId, int movieId)
+        public async Task<int?> AddRental(int userId, int movieId)
         {
 
             SqlQuery textsql = new SqlQuery(@" Insert into rentals (UserId, MovieId, Status, Rented) values (@userId, @movieId, @status, GETUTCDATE());
-                ", 30, System.Data.CommandType.Text);
+                select SCOPE_IDENTITY();", 30, System.Data.CommandType.Text);
             textsql.AddInputParam("userId", SqlDbType.Int, userId);
             textsql.AddInputParam("movieId", SqlDbType.Int, movieId);
             textsql.AddInputParam("status", SqlDbType.Int, RentalStatus.Rented);
-            await _queryExecutor.ExecuteAsync(textsql);
+            return await _queryExecutor.ExecuteAsync(textsql, sqlReader => GetReturnValue<int?>(sqlReader));
 
         }
         /// <summary>

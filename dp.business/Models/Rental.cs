@@ -8,7 +8,11 @@ namespace dp.business.Models
     {
         public int MovieId { get; set; }
     }
-
+    public class RentalUpdateRequest
+    {
+        public int RentalId { get; set; }
+        public RentalStatus Status { get; set; }
+    }
     public class Rental
     {
         public int MovieId { get; set; }

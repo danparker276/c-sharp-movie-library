@@ -34,6 +34,7 @@ var builder = WebApplication.CreateBuilder(args);
     services.AddScoped<IJwtUtils, JwtUtils>();
     services.AddScoped<IUserService, UserService>();
     services.AddScoped<IMovieService, MovieService>();
+    services.AddScoped<IRentalService, RentalService>();
 }
 
 var app = builder.Build();

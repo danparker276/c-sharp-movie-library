@@ -7,7 +7,7 @@ namespace dp.api.Controllers
     {
         protected User GetClaimedUser()
         {
-            return (User)HttpContext.Items["User"];
+            return (User)HttpContext.Items["UserDb"];
 
         }
     }
